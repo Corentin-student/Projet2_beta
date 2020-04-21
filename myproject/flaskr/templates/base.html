@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+</body>
+</html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='biazer.css') }}">
+<nav>
+  <h1>Site du groupe C10</h1>
+  <ul>
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul>
+</nav>
+<head>
+  <meta charset="utf-8">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <title>Le CORONAVIRUS</title>
+  <script src="dist/chart.bundle.js"></script>
+</head>
+<body>
+  <h1>Données sur le coronavirus (chiffres fictifs)</h1>
+  
+  <canvas id="myChart"></canvas>
+  <script>
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+      // The type of chart we want to create
+      type: 'bar',
+
+      // The data for our dataset
+      data: {
+        labels: ['Belgique','France','Italie','Espagne','Pays-bas','Chine'],
+        datasets: [{
+          label: 'data',
+          backgroundColor: 'rgb(0,127, 255)',
+          borderColor: 'rgb(255,255,255)',
+          data:  [5040,42000,63000,38000,3859,70000],
+          steppedLine: true
+        }]
+      },
+
+      // Configuration options go here
+      options: {}
+    });
+  </script>
+
+</body>
+
+<section class="content">
+  <header>
+    {% block header %}
+    {% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+</html>
